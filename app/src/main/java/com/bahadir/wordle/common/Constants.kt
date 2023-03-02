@@ -5,8 +5,8 @@ object Constants {
 
     const val BASE_URL_SYNONYMS = "https://api.datamuse.com/"
 
-    const val WORDS = "entries/en/"
-    
+    const val WORDS = "entries/en/{words}"
+
     const val SYNONYMS = "words"
 
 }
