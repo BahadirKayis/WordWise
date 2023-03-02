@@ -1,3 +1,3 @@
 package com.bahadir.wordle.domain.model
 
-data class MeaningUI(val meaning: String, val definition: List<DefinitionUI>)
+data class MeaningUI(val partOfSpeech: String, val definition: List<DefinitionUI>)

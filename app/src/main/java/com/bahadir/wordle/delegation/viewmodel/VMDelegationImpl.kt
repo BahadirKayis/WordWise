@@ -44,7 +44,7 @@ class VMDelegationImpl<EFFECT : Effect, EVENT : Event, STATE : State>(
         }
     }
 
-    override fun setEffect(effect: EFFECT) {
+   override fun setEffect(effect: EFFECT) {
        viewModel.viewModelScope.launch {
             _effectTemp.emit(effect)
        }

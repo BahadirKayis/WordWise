@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/_16dp"
+    android:paddingTop="@dimen/_14dp"
+    android:paddingEnd="@dimen/_12dp"
+    android:paddingBottom="@dimen/_24dp">
+
+    <TextView
+        android:id="@+id/text_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_deep_black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1 - " />
+
+    <TextView
+        android:id="@+id/text_part_of_speech"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium_italic"
+        android:textColor="@color/text_blue"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@id/text_count"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Noun" />
+
+    <TextView
+        android:id="@+id/text_definition"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15dp"
+
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/text_black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_count"
+        tools:text="A person who is not a member of a particular profession or group" />
+
+    <TextView
+        android:id="@+id/text_example_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_14dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/text_black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_definition"
+        tools:text="Example" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_italic"
+        android:textColor="@color/text_gray"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_example_title"
+        tools:text="The word 'lay' is used in the following ways: " />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

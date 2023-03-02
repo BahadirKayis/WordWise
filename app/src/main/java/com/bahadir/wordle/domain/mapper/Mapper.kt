@@ -18,7 +18,7 @@ fun List<WordsItem>.wordsUI() = map {
 
 private fun List<Meaning>.meaningUI() = map {
     MeaningUI(
-        meaning = it.partOfSpeech,
+        partOfSpeech = it.partOfSpeech,
         definition = it.definitions.map { definition ->
             DefinitionUI(
                 definition = definition.definition,

@@ -1,6 +1,7 @@
 package com.bahadir.wordle.ui.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -52,7 +53,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun initUIEffect() = viewModel.effect.collectIn(viewLifecycleOwner) {
         when (it) {
             is SearchUIEffect.SearchToDetail -> {
-                findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToDetailFragment(it.word))
+                findNavController().navigate(
+                    SearchFragmentDirections.actionSearchFragmentToDetailFragment(
+                        it.word
+                    )
+                )
             }
         }
 

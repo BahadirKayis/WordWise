@@ -37,13 +37,11 @@ class DetailVM @Inject constructor(
         searchUseCase.invoke(word).onEach {
             when (it) {
                 is Resource.Success -> {
-                    Log.e("DetailVM", "Success$it")
-
+                    setEffect(DetailEffect.WordInformation(it.data))
                 }
                 is Resource.Error -> {
-                    Log.e("DetailVM", "Success$it")
+                    setEffect(DetailEffect.ShowError(it.throwable))
                 }
-
             }
         }.launchIn(viewModelScope)
 

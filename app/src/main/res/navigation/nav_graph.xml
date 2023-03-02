@@ -11,12 +11,20 @@
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
 
+        <action
+            android:id="@+id/action_searchFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.bahadir.wordle.ui.detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail"/>
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="word"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
 
 
 </navigation>

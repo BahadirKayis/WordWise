@@ -11,10 +11,11 @@
     <color name="text_blue">#3F5CFF</color>
     <color name="text_black">#303030</color>
     <color name="text_deep_black">#000000</color>
-    <color name="app_background">#F8F8F8</color>
+    <color name="app_background">#EDEAE7</color>
     <color name="text_recent_search">#686868</color>
     <color name="button_background">#3F5CFF</color>
     <color name="text_hint_color">#C3C3C3</color>
+    <color name="text_gray">#AAAAAA</color>
 
     <color name="blue">#40BFFF</color>
     <color name="yellow" >#FFC833</color>
