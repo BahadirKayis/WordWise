@@ -1,33 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
-    <color name="text_blue">#3F5CFF</color>
+    <color name="blue">#3F5CFF</color>
     <color name="text_black">#303030</color>
     <color name="text_deep_black">#000000</color>
-    <color name="app_background">#EDEAE7</color>
+    <color name="app_background">#F8F8F8</color>
     <color name="text_recent_search">#686868</color>
-    <color name="button_background">#3F5CFF</color>
-    <color name="text_hint_color">#C3C3C3</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
     <color name="text_gray">#AAAAAA</color>
+    <color name="bg_loading_status_bar">#80000000</color>
+    <color name="red">#DF1D34</color>
 
-    <color name="blue">#40BFFF</color>
-    <color name="yellow" >#FFC833</color>
-    <color name="red">#FB7181</color>
-    <color name="green" >#53D1B6</color>
-    <color name="greenbg" >#28D613</color>
-    <color name="purple">#5C61F4</color>
-    <color name="neutral_dark">#223263</color>
-    <color name="neutral_gray">#9098B1</color>
-    <color name="neutral_light" >#EBF0FF</color>
+    // Custom Compound View
+    <color name="ccv_blue">#40BFFF</color>
+    <color name="ccv_neutral_dark">#223263</color>
 
-
-
-    <color name="blue_dark" >#1C203A</color>
 </resources>

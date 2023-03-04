@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.SharedFlow
 interface VMDelegation<EFFECT : Effect, EVENT : Event, STATE : State> {
     fun viewModel(viewModel: ViewModel)
 
-     fun setEffect(effect: EFFECT)
+    fun setEffect(effect: EFFECT)
 
     fun setEvent(event: EVENT)
 
@@ -17,5 +17,4 @@ interface VMDelegation<EFFECT : Effect, EVENT : Event, STATE : State> {
     val effect: SharedFlow<EFFECT>
     val event: SharedFlow<EVENT>
     val state: SharedFlow<STATE>
-
 }

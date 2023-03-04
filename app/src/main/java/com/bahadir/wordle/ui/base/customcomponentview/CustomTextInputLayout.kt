@@ -9,12 +9,8 @@ import android.view.LayoutInflater
 import android.view.animation.Transformation
 import android.widget.FrameLayout
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.widget.doOnTextChanged
 import com.bahadir.wordle.R
-import com.bahadir.wordle.common.extensions.color
 import com.bahadir.wordle.common.extensions.colorStateList
-import com.bahadir.wordle.common.extensions.isValidEmail
-import com.bahadir.wordle.common.extensions.isValidPassword
 import com.bahadir.wordle.databinding.CustomViewEdittextBinding
 
 
@@ -30,17 +26,16 @@ class CustomTextInputLayout @JvmOverloads constructor(
             val startIcon = getResourceId(R.styleable.CustomTextInputLayout_cviL_startIcon, 0)
             val passwordToggle =
                 getBoolean(R.styleable.CustomTextInputLayout_cviL_passwordToggle, false)
-            val boxStrokeColor = getResourceId(
-                R.styleable.CustomTextInputLayout_cviL_boxStrokeColor, R.color.white
-            )
+//            val boxStrokeColor = getResourceId(
+//                R.styleable.CustomTextInputLayout_cviL_boxStrokeColor, R.color.white
+//            )
 
             //EditText
             val hintE = getString(R.styleable.CustomTextInputLayout_cviE_hint)
             val inputTypeE = getInt(R.styleable.CustomTextInputLayout_cviE_inputType, 0)
-            val textErrorMessage =
-                getString(R.styleable.CustomTextInputLayout_cviL_textErrorMessage)
+
             val startIconTint = getResourceId(
-                R.styleable.CustomTextInputLayout_cviL_startIconTint, R.color.neutral_dark
+                R.styleable.CustomTextInputLayout_cviL_startIconTint, R.color.ccv_neutral_dark
             )
 
             recycle()
@@ -49,8 +44,8 @@ class CustomTextInputLayout @JvmOverloads constructor(
             startIconTint(startIconTint)
 
 
-            textIsValidControl(inputTypeE, textErrorMessage ?: "")
-            boxStrokeColor(boxStrokeColor)
+            //textIsValidControl(inputTypeE, textErrorMessage ?: "")
+            // boxStrokeColor(boxStrokeColor)
             inputTypeE(inputTypeE)
             hintE(hintE)
 
@@ -58,120 +53,15 @@ class CustomTextInputLayout @JvmOverloads constructor(
     }
 
 
-    fun getText(): String {
+    fun getText(): String? {
         return binding.editText.text.toString().ifEmpty {
-            isNotCorrect("This field cannot be empty")
+            //  isNotCorrect("This field cannot be empty")
             Log.e("CustomViewTextInput", "getText: This field cannot be empty")
-            ""
+            null
         }
 
     }
 
-    fun setText(string: String) {
-
-        binding.editText.apply {
-            setText(string)
-            clearFocus()
-        }
-
-        binding.layout.apply {
-            isErrorEnabled = false
-            setStartIconTintList(
-                resources.colorStateList(R.color.neutral_dark)
-            )
-        }
-
-
-    }
-
-    fun isNotCorrect(errorMessage: String = "Password is not correct") {
-        with(binding.layout) {
-            error = errorMessage
-            errorEnabled()
-        }
-    }
-
-    private fun textIsValidControl(
-        inputType: Int,
-        errorMessage: String,
-
-        ) {
-        when (CustomToolbarViewInputType.fromValue(inputType)) {
-            CustomToolbarViewInputType.PASSWORD -> {
-                binding.editText.apply {
-                    setOnFocusChangeListener { _, hasFocus ->
-                        if (!hasFocus) {
-                            if (!binding.layout.isValidPassword(
-                                    text.toString(), errorMessage
-                                )
-
-                            ) {
-                                errorEnabled()
-                            }
-                        } else {
-                            doOnTextChanged { text, _, _, _ ->
-                                if (!binding.layout.isValidPassword(
-                                        text.toString(), errorMessage
-                                    )
-                                ) {
-                                    errorEnabled()
-                                } else errorEnabled(false)
-                            }
-                        }
-                    }
-                }
-            }
-            CustomToolbarViewInputType.EMAIL -> {
-                binding.editText.apply {
-                    setOnFocusChangeListener { _, hasFocus ->
-                        if (!hasFocus) {
-                            if (!binding.layout.isValidEmail(
-                                    text.toString(), errorMessage
-                                )
-                            ) {
-                                errorEnabled()
-                            }
-
-                        } else {
-                            errorEnabled(false)
-                        }
-                    }
-                }
-            }
-            CustomToolbarViewInputType.TEXT -> {
-                binding.editText.apply {
-                    setOnFocusChangeListener { _, hasFocus ->
-                        when (hasFocus) {
-                            true -> errorEnabled(false)
-                            false -> {
-//                                if (text.toString().isEmpty()){
-//                                    errorEnabled()
-//                                }
-                            }
-
-                        }
-                    }
-                }
-            }
-            CustomToolbarViewInputType.NUMBER -> {}
-        }
-    }
-
-    private fun errorEnabled(errorEnabled: Boolean = true) {
-        with(binding.layout) {
-            isErrorEnabled = errorEnabled
-            if (!errorEnabled) {
-                setStartIconTintList(resources.colorStateList(R.color.blue))
-                boxStrokeColor = resources.color(R.color.blue)
-            } else {
-                setStartIconTintList(resources.colorStateList(R.color.red))
-            }
-        }
-    }
-
-    private fun boxStrokeColor(color: Int) {
-        binding.layout.boxStrokeColor = color
-    }
 
     private fun startIconTint(color: Int) {
         binding.layout.setStartIconTintList(resources.colorStateList(color))

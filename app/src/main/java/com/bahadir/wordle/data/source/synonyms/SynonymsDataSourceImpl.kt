@@ -6,5 +6,4 @@ import com.bahadir.wordle.domain.source.SynonymsDataSource
 class SynonymsDataSourceImpl(private val synonymsService: SynonymsService) : SynonymsDataSource {
     override suspend fun getSynonyms(word: String): List<SynonymsItem> =
         synonymsService.getSynonyms(word)
-
 }

@@ -2,32 +2,34 @@ package com.bahadir.wordle.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bahadir.wordle.R
 import com.bahadir.wordle.databinding.ItemLastSearchedBinding
 
 class LastSearchedAdapter(
-    private val words: List<String>, private val onWordClick: (String) -> Unit
-) :
-    RecyclerView.Adapter<LastSearchedAdapter.ViewHolder>() {
-
+    private val words: List<String>, private val onWordClick: (String) -> Unit,
+) : RecyclerView.Adapter<LastSearchedAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: ItemLastSearchedBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(word: String) {
-            with(binding) {
-                textWord.text = word
-                cons.setOnClickListener {
-                    onWordClick.invoke(word)
-                }
-
-
-            }
+            binding.word = word
         }
     }
 
+    fun onWordClick(word: String) {
+        onWordClick.invoke(word)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding =
-            ItemLastSearchedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = DataBindingUtil.inflate<ItemLastSearchedBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.item_last_searched,
+            parent,
+            false
+        )
+        binding.searchAdapter = this
         return ViewHolder(binding)
     }
 

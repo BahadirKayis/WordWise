@@ -1,5 +1,6 @@
 package com.bahadir.wordle.data.model.words
 
+
 data class WordsItem(
     val license: License,
     val meanings: List<Meaning>,

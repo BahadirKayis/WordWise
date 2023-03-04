@@ -1,8 +1,11 @@
 package com.bahadir.wordle.domain.model
 
+import android.net.Uri
+
 data class WordsUI(
     val word: String,
     val phonetic: String,
-    val meanings: List<MeaningUI>,
-    val audio: String
+    val meaning: List<String>,
+    var definitionUI: List<DefinitionUI>,
+    val audio: Uri
 )

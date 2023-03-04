@@ -6,7 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface SynonymsService {
-
     @GET(SYNONYMS)
     suspend fun getSynonyms(@Query("rel_syn") words: String): List<SynonymsItem>
 }

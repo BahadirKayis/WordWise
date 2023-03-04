@@ -5,4 +5,8 @@
     <string name="search">Search</string>
     <string name="detail">Detail</string>
     <string name="recent_search">Recent search</string>
+    <string name="voice">Voice</string>
+    <string name="example">Example</string>
+    <string name="synonym">Synonym</string>
+    <string name="empty_error">Please  enter word</string>
 </resources>

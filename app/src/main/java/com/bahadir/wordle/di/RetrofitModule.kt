@@ -1,5 +1,6 @@
 package com.bahadir.wordle.di
 
+import com.bahadir.wordle.common.Constants.BASE_URL_SYNONYMS
 import com.bahadir.wordle.common.Constants.BASE_URL_WORD
 import com.bahadir.wordle.data.source.synonyms.SynonymsService
 import com.bahadir.wordle.data.source.words.WordsService
@@ -26,10 +27,8 @@ object RetrofitModule {
     @Provides
     @Singleton
     fun provideSynonymsService(): SynonymsService = Retrofit.Builder()
-        .baseUrl(BASE_URL_WORD)
+        .baseUrl(BASE_URL_SYNONYMS)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(SynonymsService::class.java)
-
-
 }

@@ -13,7 +13,10 @@
 
         <action
             android:id="@+id/action_searchFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -24,6 +27,7 @@
             android:name="word"
             app:argType="string"
             app:nullable="false" />
+
     </fragment>
 
 

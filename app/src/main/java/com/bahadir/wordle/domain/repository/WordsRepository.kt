@@ -6,10 +6,11 @@ import com.bahadir.wordle.domain.model.WordsUI
 import kotlinx.coroutines.flow.Flow
 
 interface WordsRepository {
-    fun getWords(word:String): Flow<Resource<WordsUI>>
+    fun getWords(word: String): Flow<Resource<List<WordsUI>>>
+
     fun getSynonyms(word: String): Flow<Resource<List<SynonymsItem>>>
 
-    fun getLateSearched(): Flow<List<String>>
+    fun getLastSearchedWords(): Flow<List<String>>
 
-    fun setWords(word: String)
+    suspend fun setWords(word: String)
 }

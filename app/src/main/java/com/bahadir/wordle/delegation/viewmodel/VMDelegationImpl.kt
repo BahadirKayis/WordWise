@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class VMDelegationImpl<EFFECT : Effect, EVENT : Event, STATE : State>(
-    setInitialState: STATE
+    setInitialState: STATE,
 ) :
     VMDelegation<EFFECT, EVENT, STATE> {
     private lateinit var viewModel: ViewModel
@@ -44,10 +44,9 @@ class VMDelegationImpl<EFFECT : Effect, EVENT : Event, STATE : State>(
         }
     }
 
-   override fun setEffect(effect: EFFECT) {
-       viewModel.viewModelScope.launch {
+    override fun setEffect(effect: EFFECT) {
+        viewModel.viewModelScope.launch {
             _effectTemp.emit(effect)
-       }
+        }
     }
-
 }

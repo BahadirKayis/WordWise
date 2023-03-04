@@ -6,7 +6,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-
 fun <T> Flow<T>.collectIn(viewLifecycleOwner: LifecycleOwner, response: (T) -> Unit) {
     viewLifecycleOwner.lifecycleScope.launchWhenResumed {
         collect {
@@ -14,6 +13,7 @@ fun <T> Flow<T>.collectIn(viewLifecycleOwner: LifecycleOwner, response: (T) -> U
         }
     }
 }
+
 fun <T> Flow<T>.collectIn(coroutineScope: CoroutineScope, function: (T) -> Unit) {
     coroutineScope.launch {
         collect {

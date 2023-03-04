@@ -1,45 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cons"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/_16dp"
-    android:layout_marginTop="@dimen/_28dp"
-    android:layout_marginEnd="@dimen/_16dp">
 
-    <ImageView
-        android:id="@+id/img_search"
-        android:layout_width="wrap_content"
+<layout>
+    <data>
+        <variable
+            name="searchAdapter"
+            type="com.bahadir.wordle.ui.search.LastSearchedAdapter" />
+
+        <variable
+            name="word"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:onClick="@{() -> searchAdapter.onWordClick(textWord.getText().toString())}"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/search"
-        android:src="@drawable/ic_search"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="@dimen/_28dp"
+        android:layout_marginEnd="@dimen/_16dp"
+        android:background="@color/app_background">
 
-    <TextView
-        android:id="@+id/text_word"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_32dp"
-        android:layout_marginEnd="@dimen/_32dp"
-        android:fontFamily="@font/roboto"
-        android:textColor="@color/text_deep_black"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/img_arrow"
-        app:layout_constraintStart_toEndOf="@id/img_search"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Aarhus" />
+        <ImageView
+            android:id="@+id/img_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/search"
+            android:src="@drawable/ic_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/img_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/detail"
-        android:src="@drawable/ic_arrow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/text_word"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_32dp"
+            android:layout_marginEnd="@dimen/_32dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/text_deep_black"
+            android:text="@{word}"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/img_arrow"
+            app:layout_constraintStart_toEndOf="@id/img_search"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Aarhus" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/img_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/detail"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
