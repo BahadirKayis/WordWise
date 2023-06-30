@@ -26,6 +26,7 @@ class DetailAdapter(
             }
             definition.countryFlag?.let {
                 imageFlag.setImageResource(it)
+                imageFlag.visible()
             }
         }
     }
@@ -51,7 +52,7 @@ class DetailAdapter(
             override fun performFiltering(charString: CharSequence?): FilterResults {
                 val filteredList: MutableList<DefinitionUI> = mutableListOf()
 
-                val list: MutableList<String> = charString.toString().split(",").toMutableList()
+                val list = charString.toString().split(",").toList()
 
                 for (item in list) {
                     if (item.isNotEmpty()) {
@@ -68,10 +69,15 @@ class DetailAdapter(
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                results?.values?.let {
-                    definition = it as List<DefinitionUI>
+                val filteredDefinitions = results?.values as? List<*>
+                filteredDefinitions?.let { def ->
+                    definition = def.filterIsInstance<DefinitionUI>()
                     notifyItemRangeChanged(0, definition.size)
                 }
+//                results?.values?.let { def ->
+//                    definition = def as List<DefinitionUI>
+//                    notifyItemRangeChanged(0, definition.size)
+//                }
             }
         }
     }

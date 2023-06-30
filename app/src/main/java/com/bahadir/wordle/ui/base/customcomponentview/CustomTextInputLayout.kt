@@ -4,7 +4,6 @@ import android.content.Context
 import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.animation.Transformation
 import android.widget.FrameLayout
@@ -22,15 +21,10 @@ class CustomTextInputLayout @JvmOverloads constructor(
 
     init {
         context.obtainStyledAttributes(attributeSet, R.styleable.CustomTextInputLayout).apply {
-            //Layout
             val startIcon = getResourceId(R.styleable.CustomTextInputLayout_cviL_startIcon, 0)
             val passwordToggle =
                 getBoolean(R.styleable.CustomTextInputLayout_cviL_passwordToggle, false)
-//            val boxStrokeColor = getResourceId(
-//                R.styleable.CustomTextInputLayout_cviL_boxStrokeColor, R.color.white
-//            )
 
-            //EditText
             val hintE = getString(R.styleable.CustomTextInputLayout_cviE_hint)
             val inputTypeE = getInt(R.styleable.CustomTextInputLayout_cviE_inputType, 0)
 
@@ -43,23 +37,14 @@ class CustomTextInputLayout @JvmOverloads constructor(
             passwordToggle(passwordToggle)
             startIconTint(startIconTint)
 
-
-            //textIsValidControl(inputTypeE, textErrorMessage ?: "")
-            // boxStrokeColor(boxStrokeColor)
             inputTypeE(inputTypeE)
             hintE(hintE)
-
         }
     }
 
 
-    fun getText(): String? {
-        return binding.editText.text.toString().ifEmpty {
-            //  isNotCorrect("This field cannot be empty")
-            Log.e("CustomViewTextInput", "getText: This field cannot be empty")
-            null
-        }
-
+    fun getText(): String {
+        return binding.editText.text.toString()
     }
 
 
@@ -86,8 +71,6 @@ class CustomTextInputLayout @JvmOverloads constructor(
     }
 
     private fun inputTypeE(inputType: Int) {
-
-
         val type = when (CustomToolbarViewInputType.fromValue(inputType)) {
             CustomToolbarViewInputType.TEXT -> Transformation.TYPE_ALPHA
             CustomToolbarViewInputType.NUMBER -> InputType.TYPE_CLASS_NUMBER

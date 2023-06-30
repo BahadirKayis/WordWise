@@ -12,5 +12,5 @@ interface WordsRepository {
 
     fun getLastSearchedWords(): Flow<List<String>>
 
-    suspend fun setWords(word: String)
+    suspend fun addSearchedWord(word: String, lastSearch: List<String>)
 }

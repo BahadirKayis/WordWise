@@ -2,13 +2,16 @@ package com.bahadir.wordle.ui.detail
 
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bahadir.wordle.R
-import com.bahadir.wordle.common.extensions.*
+import com.bahadir.wordle.common.extensions.collectIn
+import com.bahadir.wordle.common.extensions.gone
+import com.bahadir.wordle.common.extensions.showCustomSnackBar
+import com.bahadir.wordle.common.extensions.visible
 import com.bahadir.wordle.databinding.FragmentDetailBinding
 import com.bahadir.wordle.delegation.viewBinding
 import com.bahadir.wordle.domain.model.WordsUI
@@ -19,14 +22,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailFragment : Fragment(R.layout.fragment_detail) {
-
     private val binding by viewBinding(FragmentDetailBinding::bind)
-
     private val viewModel: DetailVM by viewModels()
-
     private lateinit var adapterDetail: DetailAdapter
     private lateinit var adapterFilter: FilterAdapter
-
     private lateinit var meaningUI: WordsUI
     private lateinit var mediaPlayer: MediaPlayer
 
@@ -58,16 +57,19 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             is DetailUIEffect.StartAudio -> {
                 mediaPlayer.start()
             }
+
             is DetailUIEffect.FilterHide -> {
                 binding.includeTop.rvFilter.adapter = adapterFilter
                 adapterDetail.setData(meaningUI.definitionUI)
                 binding.includeTop.btCancel.gone()
             }
+
             is DetailUIEffect.BackPress -> {
                 findNavController().popBackStack()
             }
-            is DetailUIEffect.ShowError -> {
-                requireContext().showCustomSnackBar(it.message, requireView())
+
+            is DetailUIEffect.Error -> {
+                requireContext().showCustomSnackBar(resources.getString(it.message), requireView())
                 findNavController().popBackStack()
             }
         }
@@ -80,7 +82,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 includeTop.textPhonetic.text = phonetic
                 adapterDetail = DetailAdapter(definitionUI)
                 rvDetail.adapter = adapterDetail
-                mediaPlayer = MediaPlayer.create(requireContext(), audio)
+                audio?.let {
+                    mediaPlayer = MediaPlayer.create(requireContext(), it)
+                }
                 adapterFilter = FilterAdapter(meaning, ::filterOnClick)
                 includeTop.rvFilter.adapter = adapterFilter
             }
@@ -92,29 +96,26 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         viewModel.setEvent(DetailEvent.Filter(string, count))
     }
 
-    private fun initUIState() = viewModel.state.collectIn(viewLifecycleOwner) {
-        when (it) {
-            is DetailUIState.WordAndSynonym -> {
-                initWordInformation(it.word)
-                meaningUI = it.word
-                binding.includeSynonym.rcSynonym.adapter = SynonymAdapter(it.synonym)
+    private fun initUIState() = viewModel.state.collectIn(viewLifecycleOwner) { state ->
+        binding.progressBar.isVisible = state.isLoading
 
-                requireActivity().window.statusBarColor = resources.color(R.color.white)
-                binding.progressBar.gone()
-            }
-            is DetailUIState.FilterShow -> {
-                adapterDetail.setData(meaningUI.definitionUI)
-                adapterDetail.filter.filter(it.filter)
-                binding.includeTop.btCancel.visible()
-            }
-            is DetailUIState.DetailLoadingUIState -> {
-                Log.e("DetailFragment", "DetailLoadingUIState")
-                binding.progressBar.visible()
-                requireActivity().window.statusBarColor =
-                    resources.color(R.color.bg_loading_status_bar)
-            }
+        state.word?.let {
+            initWordInformation(it)
+            meaningUI = it
+        }
+
+        state.synonym?.let {
+            binding.includeSynonym.rcSynonym.adapter = SynonymAdapter(it)
+        }
+
+        state.filter?.let {
+            adapterDetail.setData(meaningUI.definitionUI)
+
+            adapterDetail.filter.filter(it)
+            binding.includeTop.btCancel.visible()
         }
     }
 }
+
 
 

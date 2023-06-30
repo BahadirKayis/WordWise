@@ -11,7 +11,7 @@ fun List<WordsItem>.wordsUI() = map {
         word = it.word,
         phonetic = it.phonetic,
         definitionUI = it.meanings.definitionUI(),
-        audio = it.phonetics.last().audio.toUri(),
+        audio = it.phonetics.findLast { audio-> audio.audio.contains(".mp3") }?.audio?.toUri(),
         meaning = it.meanings.map { meaning -> meaning.partOfSpeech }
     )
 }

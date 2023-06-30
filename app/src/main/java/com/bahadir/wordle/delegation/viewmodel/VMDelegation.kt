@@ -12,6 +12,7 @@ interface VMDelegation<EFFECT : Effect, EVENT : Event, STATE : State> {
     fun setEffect(effect: EFFECT)
 
     fun setEvent(event: EVENT)
+    fun getCurrentState(): STATE
 
     fun setState(state: STATE)
     val effect: SharedFlow<EFFECT>

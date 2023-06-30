@@ -32,6 +32,8 @@ class VMDelegationImpl<EFFECT : Effect, EVENT : Event, STATE : State>(
         this.viewModel = viewModel
     }
 
+    override fun getCurrentState(): STATE = _stateTemp.value
+
     override fun setState(state: STATE) {
         viewModel.viewModelScope.launch {
             _stateTemp.emit(state)

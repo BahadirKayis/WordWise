@@ -7,5 +7,5 @@ data class WordsUI(
     val phonetic: String,
     val meaning: List<String>,
     var definitionUI: List<DefinitionUI>,
-    val audio: Uri
+    val audio: Uri?= null
 )

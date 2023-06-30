@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import androidx.annotation.ColorRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.datastore.preferences.preferencesDataStore
@@ -15,11 +16,18 @@ fun View.gone() {
     visibility = View.GONE
 }
 
-val Context.dataStore by preferencesDataStore("last_searched")
 
 fun View.visible() {
     visibility = View.VISIBLE
 }
+
+fun Window.navigationHide() {
+    @Suppress("DEPRECATION")
+    decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_IMMERSIVE
+                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+    }
+
 
 fun String.titleCaseFirstChar() = replaceFirstChar(Char::titlecase)
 

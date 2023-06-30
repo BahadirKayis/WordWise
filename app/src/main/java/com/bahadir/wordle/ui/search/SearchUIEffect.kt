@@ -3,6 +3,6 @@ package com.bahadir.wordle.ui.search
 import com.bahadir.wordle.ui.base.Effect
 
 sealed class SearchUIEffect : Effect {
-    data class SearchToDetail(val word: String) : SearchUIEffect()
+    data class ActionToSearch(val word: String) : SearchUIEffect()
     data class ShowSnackError(val message: String) : SearchUIEffect()
 }

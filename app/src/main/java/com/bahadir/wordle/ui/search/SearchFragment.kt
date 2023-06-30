@@ -21,7 +21,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initUIEvent()
         initUIEffect()
         initUIState()
@@ -31,24 +30,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun initUIEvent() {
         with(binding) {
             btSearch.setOnClickListener {
-                searchEvent()
+                onWordsSearch(etSearch.getText())
             }
             etSearch.starIconClickListener {
-                searchEvent()
+                onWordsSearch(etSearch.getText())
             }
         }
     }
 
-    private fun searchEvent() {
-        binding.etSearch.getText()?.let { words ->
-            viewModel.setEvent(SearchEvent.Search(words))
-        } ?: run {
-            viewModel.setEvent(SearchEvent.ShowToastError(getString(R.string.empty_error)))
-        }
-    }
-
-    private fun onWordsClick(words: String) {
-        viewModel.setEvent(SearchEvent.Search(words))
+    private fun onWordsSearch(words: String) {
+        viewModel.setEvent(SearchEvent.ActionToSearch(words))
     }
 
     private fun initUIState() = viewModel.state.collectIn(viewLifecycleOwner) {
@@ -56,22 +47,24 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             is SearchUIState.LastSearchedWords -> {
                 binding.rcWords.adapter = LastSearchedAdapter(
                     it.lastSearchedWords.reversed(),
-                    onWordClick = ::onWordsClick
+                    onWordClick = ::onWordsSearch
                 )
             }
+
             is SearchUIState.SearchLoadingState -> Unit
         }
     }
 
     private fun initUIEffect() = viewModel.effect.collectIn(viewLifecycleOwner) {
         when (it) {
-            is SearchUIEffect.SearchToDetail -> {
+            is SearchUIEffect.ActionToSearch -> {
                 findNavController().navigate(
                     SearchFragmentDirections.actionSearchFragmentToDetailFragment(
                         it.word
                     )
                 )
             }
+
             is SearchUIEffect.ShowSnackError -> {
                 requireContext().showCustomSnackBar(it.message, requireView())
             }
