@@ -79,10 +79,15 @@ val wordsItem: WordsItem = WordsItem(
 )
 
 @VisibleForTesting
-val lastSearched: MutableList<String> = mutableListOf("home", "house", "family","base")
+val lastSearchedList: MutableList<String> =
+    mutableListOf("Home", "House", "Family", "Base", "School")
+
+@VisibleForTesting
+val lastSearchedString = "Home,House,Family,Base,School"
 
 @VisibleForTesting
 const val WORD = "home"
+
 @VisibleForTesting
 const val ADD_WORD = "Pencil"
 

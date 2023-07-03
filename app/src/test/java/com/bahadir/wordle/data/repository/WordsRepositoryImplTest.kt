@@ -12,7 +12,7 @@ import com.bahadir.wordle.domain.repository.WordsRepository
 import com.bahadir.wordle.domain.source.DataStoreDataSource
 import com.bahadir.wordle.domain.source.SynonymsDataSource
 import com.bahadir.wordle.domain.source.WordsDataSource
-import com.bahadir.wordle.lastSearched
+import com.bahadir.wordle.lastSearchedList
 import com.bahadir.wordle.synonymsItemList
 import com.bahadir.wordle.wordResponse
 import com.google.common.truth.Truth.assertThat
@@ -94,12 +94,12 @@ class WordsRepositoryImplTest {
     @Test
     fun `getLastSearchedWords should emit correct list`() = runBlocking {
         // Arrange
-        Mockito.`when`(dataStoreSource.getLastSearchedWords()).thenReturn(lastSearched)
+        Mockito.`when`(dataStoreSource.getLastSearchedWords()).thenReturn(lastSearchedList)
         // Act
         val result = wordsRepository.getLastSearchedWords().single()
 
         // Assert
-        assertThat(result).isEqualTo(lastSearched)
+        assertThat(result).isEqualTo(lastSearchedList)
     }
 
     @Test
@@ -122,14 +122,14 @@ class WordsRepositoryImplTest {
 
         // Mock getLastSearchedWords() to return initialLastSearchedWords
         Mockito.`when`(dataStoreSource.getLastSearchedWords())
-            .thenReturn(lastSearched.plus(ADD_WORD).toMutableList())
+            .thenReturn(lastSearchedList.plus(ADD_WORD).toMutableList())
 
-        println(lastSearched)
+        println(lastSearchedList)
         //Act
-        wordsRepository.addSearchedWord(ADD_WORD, lastSearched)
+        wordsRepository.addSearchedWord(ADD_WORD, lastSearchedList)
 
         // Verify that getLastSearchedWords() is called to update the list
-        Mockito.verify(dataStoreSource).addSearchedWord(ADD_WORD, lastSearched)
+        Mockito.verify(dataStoreSource).addSearchedWord(ADD_WORD, lastSearchedList)
         // Assert
         assertThat(dataStoreSource.getLastSearchedWords()).contains(ADD_WORD.titleCaseFirstChar())
     }
@@ -139,18 +139,18 @@ class WordsRepositoryImplTest {
         runBlocking {
             // Mock getLastSearchedWords() to return initialLastSearchedWords
             Mockito.`when`(dataStoreSource.getLastSearchedWords())
-                .thenReturn(lastSearched)
+                .thenReturn(lastSearchedList)
 
             // Act
-            wordsRepository.addSearchedWord(WORD, lastSearched)
+            wordsRepository.addSearchedWord(WORD, lastSearchedList)
 
             // Verify that addSearchedWord() is not called
-            Mockito.verify(dataStoreSource).addSearchedWord(WORD, lastSearched)
+            Mockito.verify(dataStoreSource).addSearchedWord(WORD, lastSearchedList)
 
             // Assert
             // Ensure that the last searched words remain unchanged
             assertThat(dataStoreSource.getLastSearchedWords()).containsExactlyElementsIn(
-                lastSearched
+                lastSearchedList
             ).inOrder()
         }
 
