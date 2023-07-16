@@ -1,9 +1,9 @@
 package com.bahadir.wordle.delegation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.bahadir.wordle.ui.base.Effect
-import com.bahadir.wordle.ui.base.Event
-import com.bahadir.wordle.ui.base.State
+import com.bahadir.wordle.presentation.base.Effect
+import com.bahadir.wordle.presentation.base.Event
+import com.bahadir.wordle.presentation.base.State
 import kotlinx.coroutines.flow.SharedFlow
 
 interface VMDelegation<EFFECT : Effect, EVENT : Event, STATE : State> {

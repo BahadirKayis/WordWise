@@ -8,6 +8,7 @@ import com.bahadir.wordle.data.source.synonyms.SynonymsDataSourceImpl
 import com.bahadir.wordle.data.source.synonyms.SynonymsService
 import com.bahadir.wordle.data.source.words.WordsDataSourceImpl
 import com.bahadir.wordle.data.source.words.WordsService
+import com.bahadir.wordle.domain.model.WordsUI
 import com.bahadir.wordle.domain.repository.WordsRepository
 import com.bahadir.wordle.domain.source.DataStoreDataSource
 import com.bahadir.wordle.domain.source.SynonymsDataSource
@@ -15,6 +16,8 @@ import com.bahadir.wordle.domain.source.WordsDataSource
 import com.bahadir.wordle.lastSearchedList
 import com.bahadir.wordle.synonymsItemList
 import com.bahadir.wordle.wordResponse
+import com.bahadir.wordle.wordsItem
+import com.bahadir.wordle.wordsUIList
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.single
@@ -35,6 +38,7 @@ class WordsRepositoryImplTest {
 
     private lateinit var wordSource: WordsDataSource
     private lateinit var synonymsSource: SynonymsDataSource
+
     @Mock
     private lateinit var dataStoreSource: DataStoreDataSource
 
@@ -70,6 +74,17 @@ class WordsRepositoryImplTest {
             Mockito.`when`(wordsService.getWords(WORD)).thenReturn(null)
             val state = wordsRepository.getWords(WORD).first()
             assertThat(state).isInstanceOf(Resource.Error::class.java)
+        }
+    }
+
+
+    @Test
+    fun getWords_should_map() {
+        runBlocking {
+            Mockito.`when`(wordsService.getWords(WORD)).thenReturn(listOf(wordsItem))
+            val state = wordsRepository.getWords(WORD).first()
+
+            assertThat((state as Resource.Success).data).isEqualTo(wordsUIList)
         }
     }
 
@@ -155,3 +170,4 @@ class WordsRepositoryImplTest {
         }
 
 }
+

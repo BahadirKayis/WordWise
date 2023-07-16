@@ -4,7 +4,7 @@
     <data>
         <variable
             name="searchAdapter"
-            type="com.bahadir.wordle.ui.search.LastSearchedAdapter" />
+            type="com.bahadir.wordle.presentation.search.LastSearchedAdapter" />
 
         <variable
             name="word"

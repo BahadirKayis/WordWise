@@ -1,5 +1,6 @@
 package com.bahadir.wordle.domain.mapper
 
+import android.net.Uri
 import androidx.core.net.toUri
 import com.bahadir.wordle.data.model.words.Meaning
 import com.bahadir.wordle.data.model.words.WordsItem
@@ -13,7 +14,7 @@ class WordMapperEntity : WordListMapper<WordsItem, WordsUI> {
                 word = it.word,
                 phonetic = it.phonetic,
                 definitionUI = it.meanings.definitionUI(),
-                audio = it.phonetics.findLast { audio -> audio.audio.contains(".mp3") }?.audio?.toUri(),
+                audio = Uri.parse(it.phonetics.findLast { audio -> audio.audio.contains(".mp3") }?.audio),
                 meaning = it.meanings.map { meaning -> meaning.partOfSpeech }
             )
         }

@@ -29,7 +29,7 @@ android {
     }
     testOptions {
         unitTests {
-            returnDefaultValues  = true
+            returnDefaultValues = true
         }
     }
     compileOptions {
@@ -51,6 +51,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.test.ext:junit-ktx:1.1.5'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -59,15 +60,13 @@ dependencies {
     testImplementation "com.google.truth:truth:1.1.4"
     //MOck
     testImplementation "org.mockito:mockito-core:4.0.0"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
     //MockWebServer
     testImplementation "com.squareup.okhttp3:mockwebserver:4.9.3"
     //Turbine
-    testImplementation "app.cash.turbine:turbine:0.5.2"
-
-
-
+    testImplementation 'app.cash.turbine:turbine:1.0.0'
     // Coroutines-Test
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1"
 
     //Navigate
     implementation "androidx.navigation:navigation-fragment-ktx:2.6.0"
@@ -78,8 +77,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     //coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.1'
 
     //ViewModel
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'

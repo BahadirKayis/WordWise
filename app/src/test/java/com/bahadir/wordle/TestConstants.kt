@@ -2,6 +2,10 @@ package com.bahadir.wordle
 
 import android.net.Uri
 import com.bahadir.wordle.data.model.synonyms.SynonymsItem
+import com.bahadir.wordle.data.model.words.Definition
+import com.bahadir.wordle.data.model.words.License
+import com.bahadir.wordle.data.model.words.Meaning
+import com.bahadir.wordle.data.model.words.Phonetic
 import com.bahadir.wordle.data.model.words.WordsItem
 import com.bahadir.wordle.domain.model.DefinitionUI
 import com.bahadir.wordle.domain.model.WordsUI
@@ -66,17 +70,181 @@ val wordsUIList: WordsUI =
     )
 
 @VisibleForTesting
-val wordsItem: WordsItem = WordsItem(
-    word = "home",
+val wordsItem = WordsItem(
+    license = License(
+        name = "CC BY-SA 3.0",
+        url = "https://creativecommons.org/licenses/by-sa/3.0"
+    ),
+    meanings = listOf(
+        Meaning(
+            antonyms = listOf(),
+            definitions = listOf(
+                Definition(
+                    antonyms = listOf(),
+                    definition = "A dwelling.",
+                    example = "",
+                    synonyms = listOf()
+                ),
+                Definition(
+                    antonyms = listOf(),
+                    definition = "One’s native land; the place or country in which one dwells; the place where one’s ancestors dwell or dwelt.",
+                    example = "",
+                    synonyms = listOf()
+                ),
+                Definition(
+                    antonyms = listOf(),
+                    definition = "The locality where a thing is usually found, or was first found, or where it is naturally abundant; habitat; seat.",
+                    example = "the home of the pine",
+                    synonyms = listOf()
+                ),
+                Definition(
+                    antonyms = listOf(),
+                    definition = "A focus point.",
+                    example = "",
+                    synonyms = listOf()
+                )
+            ),
+            partOfSpeech = "noun",
+            synonyms = listOf(
+                "home base",
+                "abode",
+                "domicile",
+                "dwelling",
+                "house",
+                "residence",
+                "tenement"
+            )
+        ),
+        Meaning(
+            antonyms = listOf(),
+            definitions = listOf(
+                Definition(
+                    antonyms = listOf(),
+                    definition = "(of animals) To return to its owner.",
+                    example = "The dog homed.",
+                    synonyms = listOf()
+                ),
+                Definition(
+                    antonyms = listOf(),
+                    definition = "(always with \"in on\") To seek or aim for something.",
+                    example = "The missile was able to home in on the target.",
+                    synonyms = listOf()
+                )
+            ),
+            partOfSpeech = "verb",
+            synonyms = listOf()
+        ),
+        Meaning(
+            antonyms = listOf("away", "road", "visitor"),
+            definitions = listOf(
+                Definition(
+                    antonyms = listOf(),
+                    definition = "Of or pertaining to one’s dwelling or country; domestic; not foreign; as home manufactures; home comforts.",
+                    example = "",
+                    synonyms = listOf()
+                ),
+                Definition(
+                    antonyms = listOf(),
+                    definition = "(except in phrases) That strikes home; direct, pointed.",
+                    example = "",
+                    synonyms = listOf()
+                ),
+                Definition(
+                    antonyms = listOf(),
+                    definition = "Personal, intimate.",
+                    example = "",
+                    synonyms = listOf()
+                ),
+                Definition(
+                    antonyms = listOf("away", "road", "visitor"),
+                    definition = "Relating to the home team (the team at whose venue a game is played).",
+                    example = "the home end, home advantage, home supporters",
+                    synonyms = listOf()
+                )
+            ),
+            partOfSpeech = "adjective",
+            synonyms = listOf()
+        ),
+        Meaning(
+            antonyms = listOf(),
+            definitions = listOf(
+                Definition(
+                    antonyms = listOf(),
+                    definition = "To one's home",
+                    example = "",
+                    synonyms = listOf()
+                ),
+                Definition(
+                    antonyms = listOf(),
+                    definition = "At or in one's place of residence or one's customary or official location; at home",
+                    example = "Everyone's gone to watch the game; there's nobody home.",
+                    synonyms = listOf()
+                ),
+                Definition(
+                    antonyms = listOf(),
+                    definition = "To a full and intimate degree; to the heart of the matter; fully, directly.",
+                    example = "",
+                    synonyms = listOf()
+                ),
+                Definition(
+                    antonyms = listOf(),
+                    definition = "Into the goal",
+                    example = "",
+                    synonyms = listOf()
+                ),
+                Definition(
+                    antonyms = listOf(),
+                    definition = "Into the right, proper or stowed position",
+                    example = "sails sheeted home",
+                    synonyms = listOf()
+                )
+            ),
+            partOfSpeech = "adverb",
+            synonyms = listOf("homeward")
+        ),
+        Meaning(
+            antonyms = listOf(),
+            definitions = listOf(
+                Definition(
+                    antonyms = listOf(),
+                    definition = "A directory that contains a user's files.",
+                    example = "",
+                    synonyms = listOf()
+                )
+            ),
+            partOfSpeech = "noun",
+            synonyms = listOf()
+        )
+    ),
     phonetic = "/(h)əʊm/",
-    meanings = emptyList(),
-    phonetics = emptyList(),
-    sourceUrls = emptyList(),
-    license = com.bahadir.wordle.data.model.words.License(
-        name = "CC BY-SA 4.0",
-        url = "https://creativecommons.org/licenses/by-sa/4.0"
-    )
+    phonetics = listOf(
+        Phonetic(
+            audio = "",
+            license = License(
+                name = "BY-SA 3.0",
+                url = "https://creativecommons.org/licenses/by-sa/3.0"
+            ),
+            sourceUrl = "",
+            text = "/(h)əʊm/"
+        ),
+        Phonetic(
+            audio = "https://api.dictionaryapi.dev/media/pronunciations/en/home-us.mp3",
+            license = License(
+                name = "BY-SA 3.0",
+                url = "https://creativecommons.org/licenses/by-sa/3.0"
+            ),
+            sourceUrl = "https://commons.wikimedia.org/w/index.php?curid=711130",
+            text = "/hoʊm/"
+        )
+    ),
+    sourceUrls = listOf(
+        "https://en.wiktionary.org/wiki/home",
+        "https://en.wiktionary.org/wiki/home%20directory"
+    ),
+    word = "home"
 )
+
+
 
 @VisibleForTesting
 val lastSearchedList: MutableList<String> =

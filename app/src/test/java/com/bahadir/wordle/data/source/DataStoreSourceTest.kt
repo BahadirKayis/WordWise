@@ -88,11 +88,12 @@ class DataStoreSourceTest {
             val newIndex = lastSearchedList.indexOf(word)
             assertThat(lastIndex).isNotEqualTo(newIndex)
         }
+
     @After
     fun tearDown() {
-        // testDataStore nesnesini sıfırlama
         Mockito.reset(testDataStore)
     }
+
     companion object {
         private val LAST_SEARCHED = stringPreferencesKey("lastSearched")
     }

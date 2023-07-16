@@ -1,6 +1,5 @@
 package com.bahadir.wordle.domain.usecase
 
-import android.util.Log
 import com.bahadir.wordle.R
 import com.bahadir.wordle.common.Resource
 import com.bahadir.wordle.domain.model.DefinitionUI

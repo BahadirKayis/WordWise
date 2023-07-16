@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background"
-    tools:context=".ui.search.SearchFragment">
+    tools:context=".presentation.search.SearchFragment">
 
-    <com.bahadir.wordle.ui.base.customcomponentview.CustomTextInputLayout
+    <com.bahadir.wordle.presentation.base.customcomponentview.CustomTextInputLayout
         android:id="@+id/etSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
