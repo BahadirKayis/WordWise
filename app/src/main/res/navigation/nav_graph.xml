@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.bahadir.wordle.presentation.search.SearchFragment"
+        android:name="com.bahadir.wordwise.presentation.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
 
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.bahadir.wordle.presentation.detail.DetailFragment"
+        android:name="com.bahadir.wordwise.presentation.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail">
         <argument

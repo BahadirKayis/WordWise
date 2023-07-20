@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^*?"
                 android:fontFamily="@font/roboto_medium"
+                android:imeOptions="actionSearch"
                 android:importantForAccessibility="no"
                 android:textColor="@color/text_recent_search"
                 android:textColorHint="@color/text_recent_search"
