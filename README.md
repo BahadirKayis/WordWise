@@ -27,7 +27,7 @@ Showing synonyms and vocabulary information of the entered word. An application 
 - [Dependency Injection](https://developer.android.com/training/dependency-injection) - Is a design pattern that facilitates the management of dependencies and the integration of components in a flexible, testable, and maintainable manner
 - [Android Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Dependency Injection Library
 - Testing
-  - [Mockito](https://site.mockito.org/) - A mocking framework that tastes really good. It lets you write beautiful tests with a clean & simple API
+  - [MockK](https://mockk.io/) - Do you need mock data? Are you using kotlin? Then you should choose me.
   - [MockWebServer](https://github.com/square/okhttp/tree/master/mockwebserver) - A scriptable web server for testing HTTP clients
   - [Truth](https://truth.dev/) - A library for performing assertions in tests
   - [Turbine](https://github.com/cashapp/turbine) - A small testing library for kotlinx.coroutines Flow
