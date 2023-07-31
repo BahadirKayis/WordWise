@@ -7,5 +7,5 @@ import retrofit2.http.Path
 
 interface WordsService {
     @GET(WORDS)
-    suspend fun getWords(@Path("words") words: String): List<WordsItem>
+    suspend fun getWords(@Path("words") words: String): List<WordsItem>?
 }

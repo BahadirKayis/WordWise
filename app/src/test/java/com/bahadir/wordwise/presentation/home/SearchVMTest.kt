@@ -12,6 +12,10 @@ import com.bahadir.wordwise.presentation.search.SearchUIEffect
 import com.bahadir.wordwise.presentation.search.SearchUIState
 import com.bahadir.wordwise.presentation.search.SearchVM
 import com.google.common.truth.Truth.assertThat
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -19,14 +23,11 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.`when`
-import org.mockito.MockitoAnnotations
+
 
 @ExperimentalCoroutinesApi
 class SearchVMTest {
-    @Mock
+    @MockK(relaxUnitFun = true)
     private lateinit var repository: WordsRepository
     private lateinit var lastSearchUseCase: LastSearchedWordsUseCase
     private lateinit var addWordUseCase: AddWordUseCase
@@ -35,12 +36,13 @@ class SearchVMTest {
 
     @Before
     fun setup() {
-        MockitoAnnotations.openMocks(this)
+        MockKAnnotations.init(this)
         testDispatcher = TestDispatcher()
         Dispatchers.setMain(testDispatcher.testDispatcher)
         lastSearchUseCase = LastSearchedWordsUseCase(repository)
         addWordUseCase = AddWordUseCase(repository)
         viewModel = SearchVM(lastSearchUseCase, addWordUseCase, testDispatcher)
+
     }
 
     @Test
@@ -69,14 +71,14 @@ class SearchVMTest {
         runTest {
             viewModel.effect.test {
                 viewModel.setEvent(SearchEvent.ActionToSearch(WORD))
-                verify(repository).addSearchedWord(WORD, emptyList())
+                coVerify { repository.addSearchedWord(WORD, emptyList()) }
                 assertThat(awaitItem()).isEqualTo(SearchUIEffect.ActionToSearch(WORD))
             }
         }
 
     @Test
     fun `getLastSearchedWords should update lastSearchedWords and SearchUIState`() = runTest {
-        `when`(repository.getLastSearchedWords()).thenReturn(flowOf(lastSearchedList))
+        coEvery { repository.getLastSearchedWords() } returns flowOf(lastSearchedList)
         viewModel.getLastSearchedWords()
         viewModel.state.test {
             assertThat(awaitItem())

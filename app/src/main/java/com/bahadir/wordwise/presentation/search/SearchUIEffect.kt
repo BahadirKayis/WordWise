@@ -1,6 +1,6 @@
 package com.bahadir.wordwise.presentation.search
 
-import com.bahadir.wordwise.presentation.base.Effect
+import com.bahadir.wordwise.base.Effect
 
 sealed class SearchUIEffect : Effect {
     data class ActionToSearch(val word: String) : SearchUIEffect()

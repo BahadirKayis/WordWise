@@ -2,7 +2,7 @@ package com.bahadir.wordwise.presentation.detail
 
 import com.bahadir.wordwise.data.model.synonyms.SynonymsItem
 import com.bahadir.wordwise.domain.model.WordsUI
-import com.bahadir.wordwise.presentation.base.State
+import com.bahadir.wordwise.base.State
 
 data class DetailUIState(
     val isLoading: Boolean = true,

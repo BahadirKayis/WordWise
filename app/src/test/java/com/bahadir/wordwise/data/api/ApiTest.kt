@@ -59,9 +59,9 @@ class ApiTest {
     fun firstElement_whenWordRequested_hasSameName() {
         runBlocking {
             enqueueMockResponse(WORD_RESPONSE_NAME)
-            val response = wordApi.getWords(WORD).first()
+            val response = wordApi.getWords(WORD)?.first()
             mockWebServer.takeRequest()
-            assertThat(response.word).isEqualTo(WORD)
+            assertThat(response?.word).isEqualTo(WORD)
         }
     }
 
@@ -90,9 +90,9 @@ class ApiTest {
     fun firstElement_whenSynonymsRequested_hasSameName() {
         runBlocking {
             enqueueMockResponse(SYNONYM_RESPONSE_NAME)
-            val response = synonymsApi.getSynonyms(WORD).first()
+            val response = synonymsApi.getSynonyms(WORD)?.first()
             mockWebServer.takeRequest()
-            assertThat(response.word).isEqualTo("house")
+            assertThat(response?.word).isEqualTo("house")
         }
     }
 

@@ -5,37 +5,43 @@ import com.bahadir.wordwise.data.source.synonyms.SynonymsDataSourceImpl
 import com.bahadir.wordwise.data.source.synonyms.SynonymsService
 import com.bahadir.wordwise.synonymsItemList
 import com.google.common.truth.Truth.assertThat
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.impl.annotations.MockK
+import io.mockk.unmockkAll
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
 
 class SynonymsSourceTest {
 
-    @Mock
+    @MockK
     private lateinit var synonymsService: SynonymsService
 
     private lateinit var synonymsSource: SynonymsDataSourceImpl
 
     @Before
     fun setup() {
-        MockitoAnnotations.openMocks(this)
+        MockKAnnotations.init(this)
         synonymsSource = SynonymsDataSourceImpl(synonymsService = synonymsService)
     }
 
     @Test
     fun `getSynonyms should return list of synonyms`() = runBlocking {
-        Mockito.`when`(synonymsService.getSynonyms(WORD)).thenReturn(synonymsItemList)
+        coEvery { synonymsService.getSynonyms(WORD) } returns synonymsItemList
         val response = synonymsSource.getSynonyms(WORD)
         assertThat(response).isNotEmpty()
     }
 
     @Test
     fun `getSynonyms should return empty list on error`() = runBlocking {
-        Mockito.`when`(synonymsService.getSynonyms(WORD)).thenReturn(emptyList())
+        coEvery { synonymsService.getSynonyms(WORD) } returns emptyList()
         val response = synonymsSource.getSynonyms(WORD)
         assertThat(response).isEmpty()
+    }
+    @After
+    fun tearDown() {
+        unmockkAll()
     }
 }

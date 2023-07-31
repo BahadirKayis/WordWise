@@ -18,39 +18,38 @@ import com.bahadir.wordwise.wordResponse
 import com.bahadir.wordwise.wordsItem
 import com.bahadir.wordwise.wordsUIList
 import com.google.common.truth.Truth.assertThat
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
 
 
 class WordsRepositoryImplTest {
-    @Mock
+    @MockK
     private lateinit var wordsService: WordsService
 
-    @Mock
+    @MockK
     private lateinit var synonymsService: SynonymsService
 
     private lateinit var wordSource: WordsDataSource
     private lateinit var synonymsSource: SynonymsDataSource
-
-    @Mock
     private lateinit var dataStoreSource: DataStoreDataSource
-
     private lateinit var wordsRepository: WordsRepository
 
 
     @Before
     fun setup() {
-        MockitoAnnotations.openMocks(this)
+        MockKAnnotations.init(this)
         wordSource = WordsDataSourceImpl(wordsService = wordsService)
         synonymsSource = SynonymsDataSourceImpl(synonymsService = synonymsService)
-        //test ortamında gerçek veri kaynağı yerine mock bir veri kaynağı kullanmanızı sağlar
-        dataStoreSource = Mockito.mock(DataStoreDataSource::class.java)
+        dataStoreSource = mockk<DataStoreDataSource>(relaxed = true)
         wordsRepository = WordsRepositoryImpl(
             wordsDataSource = wordSource,
             synonymsDataSource = synonymsSource,
@@ -61,7 +60,7 @@ class WordsRepositoryImplTest {
     @Test
     fun `getWords should return success`() {
         runBlocking {
-            Mockito.`when`(wordsService.getWords(WORD)).thenReturn(wordResponse)
+            coEvery { wordsService.getWords(WORD) } returns wordResponse
             val state = wordsRepository.getWords(WORD).first()
             assertThat(state).isInstanceOf(Resource.Success::class.java)
         }
@@ -69,8 +68,8 @@ class WordsRepositoryImplTest {
 
     @Test
     fun `getWords should return error`() {
-        runBlocking {
-            Mockito.`when`(wordsService.getWords(WORD)).thenReturn(null)
+        runTest {
+            coEvery { wordsService.getWords(WORD) } returns null
             val state = wordsRepository.getWords(WORD).first()
             assertThat(state).isInstanceOf(Resource.Error::class.java)
         }
@@ -80,17 +79,17 @@ class WordsRepositoryImplTest {
     @Test
     fun getWords_should_map() {
         runBlocking {
-            Mockito.`when`(wordsService.getWords(WORD)).thenReturn(listOf(wordsItem))
+            coEvery { wordsService.getWords(WORD) } returns listOf(wordsItem)
             val state = wordsRepository.getWords(WORD).first()
-
-            assertThat((state as Resource.Success).data).isEqualTo(wordsUIList)
+            println(state)
+            assertThat(state).isEqualTo(Resource.Success(listOf(wordsUIList)))
         }
     }
 
     @Test
     fun `getSynonyms should return success`() {
         runBlocking {
-            Mockito.`when`(synonymsService.getSynonyms(WORD)).thenReturn(synonymsItemList)
+            coEvery { synonymsService.getSynonyms(WORD) } returns (synonymsItemList)
             val state = wordsRepository.getSynonyms(WORD).first()
             assertThat(state).isInstanceOf(Resource.Success::class.java)
         }
@@ -99,7 +98,7 @@ class WordsRepositoryImplTest {
     @Test
     fun `getSynonyms should return error`() {
         runBlocking {
-            Mockito.`when`(synonymsService.getSynonyms(WORD)).thenReturn(null)
+            coEvery { synonymsService.getSynonyms(WORD) } returns null
             val state = wordsRepository.getSynonyms(WORD).first()
             assertThat(state).isInstanceOf(Resource.Error::class.java)
         }
@@ -107,62 +106,34 @@ class WordsRepositoryImplTest {
 
     @Test
     fun `getLastSearchedWords should emit correct list`() = runBlocking {
-        // Arrange
-        Mockito.`when`(dataStoreSource.getLastSearchedWords()).thenReturn(lastSearchedList)
-        // Act
-        val result = wordsRepository.getLastSearchedWords().single()
-
-        // Assert
+        coEvery { dataStoreSource.getLastSearchedWords() } returns lastSearchedList
+        val result = wordsRepository.getLastSearchedWords().first()
         assertThat(result).isEqualTo(lastSearchedList)
     }
 
     @Test
     fun `getLastSearchedWords EmptyTest`() = runBlocking {
-        // Arrange
-        Mockito.`when`(dataStoreSource.getLastSearchedWords()).thenReturn(mutableListOf())
-        // Act
-        val result = wordsRepository.getLastSearchedWords().single()
-        Mockito.verify(dataStoreSource).getLastSearchedWords()
-        // Assert
+        coEvery { dataStoreSource.getLastSearchedWords() } returns (mutableListOf())
+        val result = wordsRepository.getLastSearchedWords().first()
+        coVerify { dataStoreSource.getLastSearchedWords() }
         assertThat(result).isEmpty()
     }
 
     @Test
-    fun `addSearchedWord should add word to last searched words`() = runBlocking {
-//        Repository testi yazarken, gerçek veri kaynağının yerine sahte (mock) bir veri kaynağı kullanırız
-//        Bu nedenle, sahte veri kaynağı üzerinde kontrol edilebilir bir durum yaratmanız
-//        ve beklentilere göre davranmasını sağlamanız gerekmektedir.
-        // Arrange
-
-        // Mock getLastSearchedWords() to return initialLastSearchedWords
-        Mockito.`when`(dataStoreSource.getLastSearchedWords())
-            .thenReturn(lastSearchedList.plus(ADD_WORD).toMutableList())
-
-        println(lastSearchedList)
-        //Act
+    fun `addSearchedWord should add word to last searched words`() = runTest {
+        val addedList = lastSearchedList.plus(ADD_WORD).toMutableList()
+        coEvery { (dataStoreSource.getLastSearchedWords()) } returns addedList
         wordsRepository.addSearchedWord(ADD_WORD, lastSearchedList)
-
-        // Verify that getLastSearchedWords() is called to update the list
-        Mockito.verify(dataStoreSource).addSearchedWord(ADD_WORD, lastSearchedList)
-        // Assert
+        coVerify { dataStoreSource.addSearchedWord(ADD_WORD, lastSearchedList) }
         assertThat(dataStoreSource.getLastSearchedWords()).contains(ADD_WORD.titleCaseFirstChar())
     }
 
     @Test
     fun `addSearchedWord should not add word if it already exists in last searched words`() =
         runBlocking {
-            // Mock getLastSearchedWords() to return initialLastSearchedWords
-            Mockito.`when`(dataStoreSource.getLastSearchedWords())
-                .thenReturn(lastSearchedList)
-
-            // Act
+            coEvery { (dataStoreSource.getLastSearchedWords()) } returns lastSearchedList
             wordsRepository.addSearchedWord(WORD, lastSearchedList)
-
-            // Verify that addSearchedWord() is not called
-            Mockito.verify(dataStoreSource).addSearchedWord(WORD, lastSearchedList)
-
-            // Assert
-            // Ensure that the last searched words remain unchanged
+            coVerify { dataStoreSource.addSearchedWord(WORD, lastSearchedList) }
             assertThat(dataStoreSource.getLastSearchedWords()).containsExactlyElementsIn(
                 lastSearchedList
             ).inOrder()

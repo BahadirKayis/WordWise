@@ -1,4 +1,4 @@
-package com.bahadir.wordwise.presentation.base.customcomponentview
+package com.bahadir.wordwise.base.customcomponentview
 
 import android.content.Context
 import android.text.InputType
@@ -48,7 +48,7 @@ class CustomTextInputLayout @JvmOverloads constructor(
     }
 
     fun imeOptions(action: (Unit) -> Unit) {
-        binding.editText.setOnEditorActionListener { v, actionId, event ->
+        binding.editText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 action.invoke(Unit)
             }

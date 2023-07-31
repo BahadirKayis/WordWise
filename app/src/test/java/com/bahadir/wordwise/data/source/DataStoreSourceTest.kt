@@ -8,48 +8,50 @@ import com.bahadir.wordwise.domain.source.DataStoreDataSource
 import com.bahadir.wordwise.lastSearchedList
 import com.bahadir.wordwise.lastSearchedString
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.flow.first
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.impl.annotations.MockK
+import io.mockk.unmockkAll
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.`when`
-import org.mockito.MockitoAnnotations
 
 class DataStoreSourceTest {
-    @Mock
+
+    @MockK
     private lateinit var testDataStore: DataStore<Preferences>
     private lateinit var dataStoreSource: DataStoreDataSource
 
+    @MockK
+    private lateinit var emptyPreferences: Preferences
+
     @Before
     fun setup() {
-        MockitoAnnotations.openMocks(this)
-        val mockPreferences = mock(Preferences::class.java)
-        val mockFlow = flowOf(mockPreferences)
-        `when`(testDataStore.data).thenReturn(mockFlow)
+        MockKAnnotations.init(this)
+        coEvery { testDataStore.data } returns flowOf(emptyPreferences)
+        coEvery { testDataStore.updateData(any()) } returns (emptyPreferences)
         dataStoreSource = DataStoreDataSourceImpl(testDataStore)
     }
 
     @Test
-    fun `getLastSearchedWords should return list empty`() = runBlocking {
+    fun `get last searched words should return list empty`() = runBlocking {
+        coEvery { emptyPreferences[LAST_SEARCHED] } returns null
         val response = dataStoreSource.getLastSearchedWords()
         assertThat(response).isEmpty()
     }
 
     @Test
     fun `getLastSearchedWords should convert string to list`() = runBlocking {
-        `when`(testDataStore.data.first()[LAST_SEARCHED]).thenReturn(lastSearchedString)
+        coEvery { emptyPreferences[LAST_SEARCHED] } returns lastSearchedString
         val response = dataStoreSource.getLastSearchedWords()
         assertThat(response).isInstanceOf(List::class.java)
     }
 
     @Test
     fun `getLastSearchedWords should return list of words`() = runBlocking {
-        `when`(testDataStore.data.first()[LAST_SEARCHED]).thenReturn(lastSearchedString)
+        coEvery { emptyPreferences[LAST_SEARCHED] } returns lastSearchedString
         val response = dataStoreSource.getLastSearchedWords()
         assertThat(response).isNotEmpty()
     }
@@ -67,8 +69,7 @@ class DataStoreSourceTest {
         val word = "Word"
         val list = mutableListOf("Home", "House", "Family", "Base", "School")
         dataStoreSource.addSearchedWord(word, list)
-        assertThat(list).containsExactly("House", "Family", "Base", "School", "Word")
-            .inOrder()
+        assertThat(list).containsExactly("House", "Family", "Base", "School", "Word").inOrder()
     }
 
     @Test
@@ -91,7 +92,7 @@ class DataStoreSourceTest {
 
     @After
     fun tearDown() {
-        Mockito.reset(testDataStore)
+        unmockkAll()
     }
 
     companion object {

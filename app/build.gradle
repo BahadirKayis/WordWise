@@ -58,9 +58,9 @@ dependencies {
 
     //Truth
     testImplementation "com.google.truth:truth:1.1.4"
-    //MOck
-    testImplementation "org.mockito:mockito-core:4.0.0"
-    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
+    //MockK
+    testImplementation "io.mockk:mockk:1.12.4"
+
     //MockWebServer
     testImplementation "com.squareup.okhttp3:mockwebserver:4.11.0"
     //Turbine

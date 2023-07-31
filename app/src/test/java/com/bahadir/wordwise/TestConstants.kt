@@ -23,51 +23,126 @@ val synonymsItemList: List<SynonymsItem> = listOf(
     SynonymsItem(score = 3628, word = "plate")
 )
 
-@VisibleForTesting
-val wordsUIList: WordsUI =
-    WordsUI(
-        word = "home",
-        phonetic = "/(h)əʊm/",
-        meaning = listOf("noun", "verb", "adjective", "adverb", "noun"),
-        definitionUI = listOf(
-            DefinitionUI(
-                definition = "The locality where a thing is usually found, or was first found, or where it is naturally abundant; habitat; seat.",
-                example = "the home of the pine",
-                partOfSpeech = "noun",
-                count = 3,
-                countryFlag = null
-            ),
-            DefinitionUI(
-                definition = "(of animals) To return to its owner.",
-                example = "The dog homed.",
-                partOfSpeech = "verb",
-                count = 1,
-                countryFlag = null
-            ),
-            DefinitionUI(
-                definition = "(always with \"in on\") To seek or aim for something.",
-                example = "The missile was able to home in on the target.",
-                partOfSpeech = "verb",
-                count = 2,
-                countryFlag = null
-            ),
-            DefinitionUI(
-                definition = "Relating to the home team (the team at whose venue a game is played).",
-                example = "the home end, home advantage, home supporters",
-                partOfSpeech = "adjective",
-                count = 4,
-                countryFlag = null
-            ),
-            DefinitionUI(
-                definition = "At or in one's place of residence or one's customary or official location; at home",
-                example = "Everyone's gone to watch the game; there's nobody home.",
-                partOfSpeech = "adverb",
-                count = 2,
-                countryFlag = null
-            ),
+val wordsUIList: WordsUI = WordsUI(
+    word = "home",
+    phonetic = "/(h)əʊm/",
+    meaning = listOf("noun", "verb", "adjective", "adverb", "noun"),
+    definitionUI = listOf(
+        DefinitionUI(
+            definition = "A dwelling.",
+            example = "",
+            partOfSpeech = "noun",
+            count = 1,
+            countryFlag = null
         ),
-        audio = Uri.parse("https://api.dictionaryapi.dev/media/pronunciations/en/home-us.mp3")
-    )
+        DefinitionUI(
+            definition = "One’s native land; the place or country in which one dwells; the place where one’s ancestors dwell or dwelt.",
+            example = "",
+            partOfSpeech = "noun",
+            count = 2,
+            countryFlag = null
+        ),
+        DefinitionUI(
+            definition = "The locality where a thing is usually found, or was first found, or where it is naturally abundant; habitat; seat.",
+            example = "the home of the pine",
+            partOfSpeech = "noun",
+            count = 3,
+            countryFlag = null
+        ),
+        DefinitionUI(
+            definition = "A focus point.",
+            example = "",
+            partOfSpeech = "noun",
+            count = 4,
+            countryFlag = null
+        ),
+        DefinitionUI(
+            definition = "(of animals) To return to its owner.",
+            example = "The dog homed.",
+            partOfSpeech = "verb",
+            count = 1,
+            countryFlag = null
+        ),
+        DefinitionUI(
+            definition = "(always with \"in on\") To seek or aim for something.",
+            example = "The missile was able to home in on the target.",
+            partOfSpeech = "verb",
+            count = 2,
+            countryFlag = null
+        ),
+        DefinitionUI(
+            definition = "Of or pertaining to one’s dwelling or country; domestic; not foreign; as home manufactures; home comforts.",
+            example = "",
+            partOfSpeech = "adjective",
+            count = 1,
+            countryFlag = null
+        ),
+        DefinitionUI(
+            definition = "(except in phrases) That strikes home; direct, pointed.",
+            example = "",
+            partOfSpeech = "adjective",
+            count = 2,
+            countryFlag = null
+        ),
+        DefinitionUI(
+            definition = "Personal, intimate.",
+            example = "",
+            partOfSpeech = "adjective",
+            count = 3,
+            countryFlag = null
+        ),
+        DefinitionUI(
+            definition = "Relating to the home team (the team at whose venue a game is played).",
+            example = "the home end, home advantage, home supporters",
+            partOfSpeech = "adjective",
+            count = 4,
+            countryFlag = null
+        ),
+        DefinitionUI(
+            definition = "To one's home",
+            example = "",
+            partOfSpeech = "adverb",
+            count = 1,
+            countryFlag = null
+        ),
+        DefinitionUI(
+            definition = "At or in one's place of residence or one's customary or official location; at home",
+            example = "Everyone's gone to watch the game; there's nobody home.",
+            partOfSpeech = "adverb",
+            count = 2,
+            countryFlag = null
+        ),
+        DefinitionUI(
+            definition = "To a full and intimate degree; to the heart of the matter; fully, directly.",
+            example = "",
+            partOfSpeech = "adverb",
+            count = 3,
+            countryFlag = null
+        ),
+        DefinitionUI(
+            definition = "Into the goal",
+            example = "",
+            partOfSpeech = "adverb",
+            count = 4,
+            countryFlag = null
+        ),
+        DefinitionUI(
+            definition = "Into the right, proper or stowed position",
+            example = "sails sheeted home",
+            partOfSpeech = "adverb",
+            count = 5,
+            countryFlag = null
+        ),
+        DefinitionUI(
+            definition = "A directory that contains a user's files.",
+            example = "",
+            partOfSpeech = "noun",
+            count = 1,
+            countryFlag = null
+        )
+    ),
+    audio = Uri.parse("https://api.dictionaryapi.dev/media/pronunciations/en/home-us.mp3")
+)
 
 @VisibleForTesting
 val wordsItem = WordsItem(

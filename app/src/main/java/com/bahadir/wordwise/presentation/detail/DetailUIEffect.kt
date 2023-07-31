@@ -1,7 +1,7 @@
 package com.bahadir.wordwise.presentation.detail
 
 import androidx.annotation.StringRes
-import com.bahadir.wordwise.presentation.base.Effect
+import com.bahadir.wordwise.base.Effect
 
 sealed class DetailUIEffect : Effect {
     object FilterHide : DetailUIEffect()

@@ -1,9 +1,9 @@
 package com.bahadir.wordwise.delegation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.bahadir.wordwise.presentation.base.Effect
-import com.bahadir.wordwise.presentation.base.Event
-import com.bahadir.wordwise.presentation.base.State
+import com.bahadir.wordwise.base.Effect
+import com.bahadir.wordwise.base.Event
+import com.bahadir.wordwise.base.State
 import kotlinx.coroutines.flow.SharedFlow
 
 interface VMDelegation<EFFECT : Effect, EVENT : Event, STATE : State> {

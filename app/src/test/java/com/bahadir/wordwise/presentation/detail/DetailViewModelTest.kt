@@ -15,6 +15,10 @@ import com.bahadir.wordwise.domain.usecase.SynonymsUseCase
 import com.bahadir.wordwise.synonymsItemList
 import com.bahadir.wordwise.wordsUIList
 import com.google.common.truth.Truth.assertThat
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.impl.annotations.MockK
+import io.mockk.unmockkAll
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -24,14 +28,11 @@ import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
-import org.mockito.kotlin.whenever
 
 
 @ExperimentalCoroutinesApi
 class DetailViewModelTest {
-    @Mock
+    @MockK(relaxed = true)
     private lateinit var repository: WordsRepository
     private lateinit var testDispatcher: TestDispatcher
     private lateinit var searchUseCase: SearchUseCase
@@ -42,7 +43,7 @@ class DetailViewModelTest {
 
     @Before
     fun setup() {
-        MockitoAnnotations.openMocks(this)
+        MockKAnnotations.init(this)
         testDispatcher = TestDispatcher()
         Dispatchers.setMain(Dispatchers.Unconfined)
         searchUseCase = SearchUseCase(repository)
@@ -50,12 +51,12 @@ class DetailViewModelTest {
         savedState = SavedStateHandle().apply {
             set(Constants.STATE_KEY_WORD, WORD)
         }
+
     }
 
     @Test
     fun `testInit should Initialize ViewModel Correctly`() = runTest {
         viewModel = DetailVM(savedState, searchUseCase, synonymsUseCase, testDispatcher)
-
         viewModel.event.test {
             viewModel.setEvent(DetailEvent.Voice)
             assertThat(awaitItem()).isEqualTo(DetailEvent.Voice)
@@ -70,29 +71,6 @@ class DetailViewModelTest {
             assertThat(awaitItem()).isEqualTo(DetailEvent.BackPress)
         }
     }
-
-//    @Test
-//    fun `testDetails should Update Filter And State Correctly`() = runTest {
-//        viewModel = DetailVM(savedState, searchUseCase, synonymsUseCase, testDispatcher)
-//
-//        viewModel.setEvent(DetailEvent.Filter("test", 1))
-//        viewModel.state.test {
-//            assertThat(awaitItem()).isEqualTo(
-//                DetailUIState(
-//                    filter = "test"
-//                )
-//            )
-//        }
-//
-//        viewModel.setEvent(DetailEvent.Filter("test", -1))
-//        viewModel.state.test {
-//            assertThat(awaitItem()).isEqualTo(
-//                DetailUIState(
-//                    filter = ""
-//                )
-//            )
-//        }
-//    }
 
     @Test
     fun `searchWord should update state and set effect correctly for Success cases`() =
@@ -166,15 +144,15 @@ class DetailViewModelTest {
         val synonymResult =
             if (synonymResponse) Resource.Success(synonymsItemList) else Resource.Error("Error")
 
-        whenever(repository.getSynonyms(WORD)).thenReturn(flowOf(synonymResult))
-        whenever(repository.getWords(WORD)).thenReturn(flowOf(searchResult))
+        coEvery { repository.getSynonyms(WORD) } returns flowOf(synonymResult)
+        coEvery { repository.getWords(WORD) } returns flowOf(searchResult)
         viewModel = DetailVM(savedState, searchUseCase, synonymsUseCase, testDispatcher)
         return Pair(wordsUIList, synonymsItemList)
     }
 
-
     @After
     fun tearDown() {
         Dispatchers.resetMain()
+        unmockkAll()
     }
 }

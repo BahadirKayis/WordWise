@@ -7,7 +7,7 @@
     android:background="@color/app_background"
     tools:context=".presentation.search.SearchFragment">
 
-    <com.bahadir.wordwise.presentation.base.customcomponentview.CustomTextInputLayout
+    <com.bahadir.wordwise.base.customcomponentview.CustomTextInputLayout
         android:id="@+id/etSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
